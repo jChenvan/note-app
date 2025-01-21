@@ -1,33 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect } from 'react'
 import './App.css'
+import Note from './Note.jsx'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [notes, setNotes] = useState([]);
+  const [newNote, setNewNote] = useState("");
+
+  useEffect(()=>{
+    setNotes(JSON.parse(localStorage.notes || '[]'));
+  },[]);
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <form action="" className="new-group">
+        <input type="text" value={newNote} onChange={event=>setNewNote(event.target.value)}/>
+        <button onClick={(event)=>{
+          event.preventDefault();
+          if (newNote != '') {
+            const New = [{title:newNote,content:"",key:crypto.randomUUID()},...notes];
+            setNotes(New);
+            setNewNote("");
+            localStorage.notes = JSON.stringify(New);
+          }
+        }}>+</button>
+      </form>
+      <ul className="notes">
+        {notes.map((val,index)=><Note key={val.key} title={val.title} content={val.content} setContent={text => {const New = [...notes]; New[index].content = text; setNotes(New); localStorage.notes = JSON.stringify(New)}} deleteSelf={() => {const New = [...notes]; New.splice(index,1); setNotes(New); localStorage.notes=JSON.stringify(New)}}></Note>)}
+      </ul>
     </>
   )
 }

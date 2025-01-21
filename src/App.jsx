@@ -25,7 +25,9 @@ function App() {
         }}>+</button>
       </form>
       <ul className="notes">
-        {notes.map((val,index)=><Note key={val.key} title={val.title} content={val.content} setContent={text => {const New = [...notes]; New[index].content = text; setNotes(New); localStorage.notes = JSON.stringify(New)}} deleteSelf={() => {const New = [...notes]; New.splice(index,1); setNotes(New); localStorage.notes=JSON.stringify(New)}}></Note>)}
+        {notes.map((val,index)=><li key={val.key}>
+          <Note title={val.title} content={val.content} setContent={text => {const New = [...notes]; New[index].content = text; setNotes(New); localStorage.notes = JSON.stringify(New)}} deleteSelf={() => {const New = [...notes]; New.splice(index,1); setNotes(New); localStorage.notes=JSON.stringify(New)}}></Note>
+        </li>)}
       </ul>
     </>
   )

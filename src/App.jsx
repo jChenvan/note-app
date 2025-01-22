@@ -54,7 +54,12 @@ function App() {
             .map((val, index) => (
               <li key={val.key} className={(index === current) ? 'highlight' : ''}>
                 <button onClick={() => setCurrent(index)}>{val.title}</button>
-                <button>×</button>
+                <button onClick={()=>{
+                  const New = [...notes];
+                  New.splice(index,1);
+                  setNotes(New);
+                  localStorage.notes = JSON.stringify(New);
+                }}>×</button>
               </li>
             ))}
         </ul>

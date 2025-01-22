@@ -1,7 +1,15 @@
+:is(:root,button) {
+  font-family: 'Courier New', Courier, monospace;
+}
+
 .sidebar {
   display: flex;
   flex-direction: column;
   background-image: linear-gradient(to top left, hsl(270, 6%, 13%), hsl(270, 7%, 21%));
+}
+
+.search input {
+  width:150px;
 }
 
 :is(.search input,.sidebar > button){
@@ -49,4 +57,13 @@
   flex:1;
   height: 100vh;
   overflow-y: scroll;
+  color: white;
+  background-color: black;
+  padding-left:50px;
+}
+
+textarea {
+  background-image: linear-gradient(to top left, hsl(282, 30%, 14%),hsl(282, 20%, 20%));
+  color: white;
+  padding:10px;
 }

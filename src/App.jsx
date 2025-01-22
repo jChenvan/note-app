@@ -4,7 +4,7 @@ import Note from "./Note.jsx";
 
 function countLines(text, lineLength) {
   if (!text) {
-    return;
+    return 1;
   }
   let chars = 0;
   let lines = 0;
@@ -84,8 +84,8 @@ function App() {
         {current != undefined && notes.length != 0 ? <><h1>{notes[current].title}</h1>
         <div>
           <textarea
-            cols={50}
-            rows={countLines(notes[current].content, 50)}
+            cols={75}
+            rows={Math.max(5,countLines(notes[current].content, 75))}
             value={notes[current].content}
             onChange={(event) => {
               const New = JSON.parse(JSON.stringify(notes));

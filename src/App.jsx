@@ -69,7 +69,7 @@ function App() {
               <li key={val.key} className={(index === current) ? 'highlight' : ''}>
                 <button onClick={() => setCurrent(index)}>{val.title}</button>
                 <button onClick={()=>{
-                  if (index === current) setCurrent(undefined);
+                  if (index <= current) {setCurrent(current - 1)}
                   const New = [...notes];
                   New.splice(index,1);
                   setNotes(New);

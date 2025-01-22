@@ -66,4 +66,5 @@ textarea {
   background-image: linear-gradient(to top left, hsl(282, 30%, 14%),hsl(282, 20%, 20%));
   color: white;
   padding:10px;
+  font-size: 16px;
 }

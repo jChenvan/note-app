@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import "./App.css";
-import Note from "./Note.jsx";
 
 function countLines(text, lineLength) {
   if (!text) {

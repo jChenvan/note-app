@@ -25,14 +25,20 @@
 }
 
 .notes button {
-  width:100%;
-  text-align: left;
+  background: black;
   border: none;
   outline: none;
-  background-color: black;
   color: white;
   font-size: 18px;
   padding:5px;
+}
+
+.notes li {
+  display: flex;
+}
+
+.notes li :first-child {
+  flex:1;
 }
 
 .notes li:not(:last-child) {

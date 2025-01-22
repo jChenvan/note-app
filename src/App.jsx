@@ -54,6 +54,7 @@ function App() {
             .map((val, index) => (
               <li key={val.key} className={(index === current) ? 'highlight' : ''}>
                 <button onClick={() => setCurrent(index)}>{val.title}</button>
+                <button>×</button>
               </li>
             ))}
         </ul>

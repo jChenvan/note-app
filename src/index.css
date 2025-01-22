@@ -1,4 +1,9 @@
-body > * {
-  margin: 0 auto;
-  width: fit-content;
+body {
+  margin: 0;
+}
+
+#root {
+  height:100vh;
+  display: flex;
+  align-items: stretch;
 }

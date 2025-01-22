@@ -13,7 +13,7 @@
   font-size: 16px;
 }
 
-.sidebar > button:active {
+:is(.sidebar button:active,.highlight) {
   filter:invert();
 }
 
@@ -41,4 +41,6 @@
 
 .content {
   flex:1;
+  height: 100vh;
+  overflow-y: scroll;
 }

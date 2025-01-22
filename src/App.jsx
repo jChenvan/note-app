@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./App.css";
 import Note from "./Note.jsx";
 
@@ -29,6 +29,7 @@ function App() {
   const [newNote, setNewNote] = useState("");
   const [current, setCurrent] = useState(undefined);
   const [query, setQuery] = useState("");
+  const dialogRef = useRef(null);
 
   useEffect(() => {
     setNotes(JSON.parse(localStorage.notes || "[]"));
@@ -36,6 +37,19 @@ function App() {
 
   return (
     <>
+      <dialog ref={dialogRef}>
+        <form action="">
+          <input type="text" value={newNote} onChange={(event)=>setNewNote(event.target.value)}/>
+          <button onClick={event=>{
+            event.preventDefault();
+            const New = [{title:newNote,content:'',key:crypto.randomUUID()},...notes];
+            setNotes(New);
+            localStorage.notes = JSON.stringify(New);
+            setNewNote('');
+            dialogRef.current.close();
+          }}>+</button>
+        </form>
+      </dialog>
       <div className="sidebar">
         <div className="search">
           <input
@@ -55,6 +69,7 @@ function App() {
               <li key={val.key} className={(index === current) ? 'highlight' : ''}>
                 <button onClick={() => setCurrent(index)}>{val.title}</button>
                 <button onClick={()=>{
+                  if (index === current) setCurrent(undefined);
                   const New = [...notes];
                   New.splice(index,1);
                   setNotes(New);
@@ -63,18 +78,15 @@ function App() {
               </li>
             ))}
         </ul>
-        <button>+</button>
+        <button onClick={()=>dialogRef.current.showModal()}>+</button>
       </div>
       <div className="content">
-        <h1>{current != undefined ? notes[current].title : ""}</h1>
+        {current != undefined && notes.length != 0 ? <><h1>{notes[current].title}</h1>
         <div>
           <textarea
-            style={{ display: current === undefined ? "none" : "block" }}
             cols={50}
-            rows={
-              current != undefined ? countLines(notes[current].content, 50) : 10
-            }
-            value={current != undefined ? notes[current].content : ""}
+            rows={countLines(notes[current].content, 50)}
+            value={notes[current].content}
             onChange={(event) => {
               const New = JSON.parse(JSON.stringify(notes));
               New[current].content = event.target.value;
@@ -82,7 +94,7 @@ function App() {
               localStorage.notes = JSON.stringify(New);
             }}
           ></textarea>
-        </div>
+        </div></> : <></>}
       </div>
     </>
   );

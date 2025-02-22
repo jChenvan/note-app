@@ -36,18 +36,20 @@ function App() {
 
   return (
     <>
-      <dialog ref={dialogRef}>
-        <form action="">
-          <input type="text" value={newNote} onChange={(event)=>setNewNote(event.target.value)}/>
-          <button onClick={event=>{
-            event.preventDefault();
-            const New = [{title:newNote,content:'',key:crypto.randomUUID()},...notes];
-            setNotes(New);
-            localStorage.notes = JSON.stringify(New);
-            setNewNote('');
-            dialogRef.current.close();
-          }}>+</button>
-        </form>
+      <dialog ref={dialogRef} onClick={e=>{if (e.target===dialogRef.current) {dialogRef.current.close()}}}>
+        <div>
+          <form action="">
+            <input type="text" value={newNote} onChange={(event)=>setNewNote(event.target.value)} placeholder="name your note!"/>
+            <button onClick={event=>{
+              event.preventDefault();
+              const New = [{title:newNote,content:'',key:crypto.randomUUID()},...notes];
+              setNotes(New);
+              localStorage.notes = JSON.stringify(New);
+              setNewNote('');
+              dialogRef.current.close();
+            }}>+</button>
+          </form>
+        </div>
       </dialog>
       <div className="sidebar">
         <div className="search">
@@ -83,7 +85,7 @@ function App() {
         {current != undefined && notes.length != 0 ? <><h1>{notes[current].title}</h1>
         <div>
           <textarea
-            cols={75}
+            spellCheck={false}
             rows={Math.max(5,countLines(notes[current].content, 75))}
             value={notes[current].content}
             onChange={(event) => {

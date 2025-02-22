@@ -2,6 +2,8 @@
 
 An app for taking notes. Note data is saved to local storage.
 
+*Please note that your notes are stored in you browser's localstorage. This means that they will be deleted if you erase site data, and they will not appear if you open the site in another web browser. Additionally, localstorage is not very secure, so please refrain from putting sensitive information here.*
+
 ## Credits
 
 ### Icons
